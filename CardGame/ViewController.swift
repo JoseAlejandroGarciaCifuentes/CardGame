@@ -13,14 +13,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var rightNumber: UIButton!
     @IBOutlet weak var leftnumber: UIButton!
     @IBOutlet weak var currentScore: UIButton!
-
-    var currentNumber: Int = 0
+    
+    @IBOutlet weak var currentPoints: UILabel!
+    let maxValue:Float = 21
+    let minValue:Float = 0
+    
+    var currentPointsValue: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentPoints.text = currentPointsValue.description
+        setNewValues()
         
-        setCardValues()
-       
     }
     
     
@@ -50,10 +54,12 @@ class ViewController: UIViewController {
         return Int.random(in: -9..<9)
     }
     
-    func setCardValues(){
+    func setNewValues(){
         currentScore.setTitle(Int.random(in: 0..<21).description, for: .normal)
         leftnumber.setTitle(getRandomNumber().description, for: .normal)
         rightNumber.setTitle(getRandomNumber().description, for: .normal)
+        currentPointsValue = 0
+        currentPoints.text = currentPointsValue.description
     }
     
     func updateScore(cardValue: Int)->Int{
@@ -68,12 +74,35 @@ class ViewController: UIViewController {
     func checkState(score:Int) {
         
         if score > 21 || score < 0 {
+            setNewValues()
             performSegue(withIdentifier: "lostGame", sender: nil)
         }else{
-            //SUMAR PUNTOS
+            currentPointsValue += givePoints(percentage: calculatePercentage(score: score),score: score)
+            currentPoints.text = currentPointsValue.description
         }
     }
+    
+    func calculatePercentage(score:Int)->Float{
 
+        return Float(score) * 100 / maxValue
+        
+    }
+    
+    func givePoints(percentage:Float, score:Int)->Float{
+        
+        let scoreConverted: Float = Float(score)
+        
+        if percentage > 25 && percentage < 75{
+            
+            return scoreConverted * 1.2
+        }else{
+            
+            return scoreConverted * 2
+        }
+    }
+    
+    
+    
     
 }
 
