@@ -75,8 +75,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="currentCard" destination="bUU-aj-F97" id="nrk-OL-SU1"/>
                         <outlet property="currentPoints" destination="SLC-pC-FQJ" id="Q7G-rI-lYr"/>
-                        <outlet property="currentScore" destination="bUU-aj-F97" id="DT6-o8-Goy"/>
                         <outlet property="leftnumber" destination="R1C-v2-C0O" id="XhY-xn-Sys"/>
                         <outlet property="rightNumber" destination="1su-uk-EMN" id="VDG-qe-wV9"/>
                         <segue destination="A25-Hf-OIz" kind="show" identifier="lostGame" id="eEe-4f-EHD"/>

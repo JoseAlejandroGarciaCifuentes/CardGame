@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  CardGame
 //
-//  Created by Apps2m on 13/11/2020.
+//  Created by Marxtodon on 13/11/2020.
 //  Copyright © 2020 Apps2m. All rights reserved.
 //
 
@@ -12,9 +12,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var rightNumber: UIButton!
     @IBOutlet weak var leftnumber: UIButton!
-    @IBOutlet weak var currentScore: UIButton!
-    
+    @IBOutlet weak var currentCard: UIButton!
     @IBOutlet weak var currentPoints: UILabel!
+    
     let maxValue:Float = 21
     let minValue:Float = 0
     
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     }
     
     func setNewValues(){
-        currentScore.setTitle(Int.random(in: 0..<21).description, for: .normal)
+        currentCard.setTitle(Int.random(in: 0..<21).description, for: .normal)
         leftnumber.setTitle(getRandomNumber().description, for: .normal)
         rightNumber.setTitle(getRandomNumber().description, for: .normal)
         currentPointsValue = 0
@@ -64,9 +64,9 @@ class ViewController: UIViewController {
     
     func updateScore(cardValue: Int)->Int{
         
-        let currentScoreInt: Int = Int (currentScore.title(for: .normal)!.description)!
+        let currentScoreInt: Int = Int (currentCard.title(for: .normal)!.description)!
         let result: Int = currentScoreInt + cardValue
-        currentScore.setTitle(result.description, for: .normal)
+        currentCard.setTitle(result.description, for: .normal)
         
         return result
     }
@@ -74,8 +74,8 @@ class ViewController: UIViewController {
     func checkState(score:Int) {
         
         if score > 21 || score < 0 {
-            setNewValues()
             performSegue(withIdentifier: "lostGame", sender: nil)
+            setNewValues()
         }else{
             currentPointsValue += givePoints(percentage: calculatePercentage(score: score),score: score)
             currentPoints.text = currentPointsValue.description
@@ -95,14 +95,12 @@ class ViewController: UIViewController {
         if percentage > 25 && percentage < 75{
             
             return scoreConverted * 1.2
+            
         }else{
             
             return scoreConverted * 2
         }
     }
-    
-    
-    
     
 }
 
