@@ -8,6 +8,22 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="I3t-e4-9cQ">
+            <objects>
+                <viewController id="A25-Hf-OIz" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c6O-dD-MHU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="f1E-9H-9Zg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jCC-Dy-Rub"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="96q-YB-1Vx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="975" y="139"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CardGame" customModuleProvider="target" sceneMemberID="viewController">
@@ -55,6 +71,7 @@
                         <outlet property="currentScore" destination="bUU-aj-F97" id="DT6-o8-Goy"/>
                         <outlet property="leftnumber" destination="R1C-v2-C0O" id="XhY-xn-Sys"/>
                         <outlet property="rightNumber" destination="1su-uk-EMN" id="VDG-qe-wV9"/>
+                        <segue destination="A25-Hf-OIz" kind="show" identifier="lostGame" id="eEe-4f-EHD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
