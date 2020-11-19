@@ -18,11 +18,13 @@ class ViewController: UIViewController {
     let maxValue:Float = 21
     let minValue:Float = 0
     
-    var currentPointsValue: Float = 0
+    var currentPointsValue: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentPoints.text = currentPointsValue.description
+        rightNumber.layer.cornerRadius = 20
+        leftnumber.layer.cornerRadius = 20
+        currentCard.layer.cornerRadius = 20
         setNewValues()
         
     }
@@ -59,7 +61,7 @@ class ViewController: UIViewController {
         leftnumber.setTitle(getRandomNumber().description, for: .normal)
         rightNumber.setTitle(getRandomNumber().description, for: .normal)
         currentPointsValue = 0
-        currentPoints.text = currentPointsValue.description
+        currentPoints.text = Int(currentPointsValue).description + " pts."
     }
     
     func updateScore(cardValue: Int)->Int{
@@ -78,7 +80,7 @@ class ViewController: UIViewController {
             setNewValues()
         }else{
             currentPointsValue += givePoints(percentage: calculatePercentage(score: score),score: score)
-            currentPoints.text = currentPointsValue.description
+            currentPoints.text = currentPointsValue.description + " pts."
         }
     }
     
@@ -88,18 +90,23 @@ class ViewController: UIViewController {
         
     }
     
-    func givePoints(percentage:Float, score:Int)->Float{
+    func givePoints(percentage:Float, score:Int)->Int{
         
-        let scoreConverted: Float = Float(score)
         
         if percentage > 25 && percentage < 75{
             
-            return scoreConverted * 1.2
+            return score * 120
             
         }else{
             
-            return scoreConverted * 2
+            return score * 200
         }
+    }
+    
+    func getOnlyScore(scoreFromLabel:String)->Int{
+        
+        let score = scoreFromLabel.split(separator: " ")
+        return score.startIndex
     }
     
 }
