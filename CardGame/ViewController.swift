@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentCard: UIButton!
     @IBOutlet weak var currentPoints: UILabel!
     
-    let maxValue:Float = 21
-    let minValue:Float = 0
+    let maxValue:Int = 21
+    let minValue:Int = 0
     
     var currentPointsValue: Int = 0
     
@@ -25,10 +25,12 @@ class ViewController: UIViewController {
         rightNumber.layer.cornerRadius = 20
         leftnumber.layer.cornerRadius = 20
         currentCard.layer.cornerRadius = 20
-        setNewValues()
         
+        repeat{
+            setNewValues()
+        }while !isPossibleStart()
+            
     }
-    
     
     @IBAction func leftButtonAction(_ sender: Any) {
         
@@ -75,9 +77,11 @@ class ViewController: UIViewController {
     
     func checkState(score:Int) {
         
-        if score > 21 || score < 0 {
+        if score > maxValue || score < minValue {
             performSegue(withIdentifier: "lostGame", sender: nil)
-            setNewValues()
+            repeat{
+                setNewValues()
+            }while !isPossibleStart()
         }else{
             currentPointsValue += givePoints(percentage: calculatePercentage(score: score),score: score)
             currentPoints.text = currentPointsValue.description + " pts."
@@ -86,27 +90,38 @@ class ViewController: UIViewController {
     
     func calculatePercentage(score:Int)->Float{
 
-        return Float(score) * 100 / maxValue
+        return Float(score) * 100 / Float(maxValue)
         
     }
     
     func givePoints(percentage:Float, score:Int)->Int{
         
+        let lowestPoints: Int = 120
+        let okayPoints: Int = 200
+        let nicestPoints: Int = 500
         
         if percentage > 25 && percentage < 75{
             
-            return score * 120
+            return lowestPoints
             
+        }else if percentage == 0 || percentage == 100{
+            
+            return nicestPoints
         }else{
             
-            return score * 200
+            return okayPoints
         }
     }
     
-    func getOnlyScore(scoreFromLabel:String)->Int{
+    func isPossibleStart() -> Bool {
         
-        let score = scoreFromLabel.split(separator: " ")
-        return score.startIndex
+        let rightCardValue: Int = Int (rightNumber.title(for: .normal)!.description)!
+        let leftCardValue: Int = Int (rightNumber.title(for: .normal)!.description)!
+        let myCardValue: Int = Int (rightNumber.title(for: .normal)!.description)!
+        
+        let range = 0...21
+        
+        return range.contains(myCardValue + leftCardValue) && range.contains(myCardValue + rightCardValue) ? true : false
     }
     
 }
