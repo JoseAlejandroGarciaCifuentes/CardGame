@@ -62,7 +62,13 @@ class ViewController: UIViewController {
         currentCard.setTitle(Int.random(in: 0..<21).description, for: .normal)
         leftnumber.setTitle(getRandomNumber().description, for: .normal)
         rightNumber.setTitle(getRandomNumber().description, for: .normal)
-        currentPointsValue = 0
+        
+        if let points = UserDefaults.standard.string(forKey: "points") {
+            currentPointsValue = Int(points)!
+        }else{
+            currentPointsValue = 0
+            saveState()
+        }
         currentPoints.text = Int(currentPointsValue).description + " pts."
     }
     
@@ -79,11 +85,13 @@ class ViewController: UIViewController {
         
         if score > maxValue || score < minValue {
             performSegue(withIdentifier: "lostGame", sender: nil)
+            UserDefaults.standard.removeObject(forKey: "points")
             repeat{
                 setNewValues()
             }while !isPossibleStart()
         }else{
             currentPointsValue += givePoints(percentage: calculatePercentage(score: score),score: score)
+            saveState()
             currentPoints.text = currentPointsValue.description + " pts."
         }
     }
@@ -122,6 +130,11 @@ class ViewController: UIViewController {
         let range = 0...21
         
         return range.contains(myCardValue + leftCardValue) && range.contains(myCardValue + rightCardValue) ? true : false
+    }
+    
+    func saveState(){
+        
+        UserDefaults.standard.set(currentPointsValue.description, forKey: "points")
     }
     
 }

@@ -13,6 +13,7 @@
 		0D50F021255EAFE800160720 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D50F01F255EAFE800160720 /* Main.storyboard */; };
 		0D50F023255EAFEC00160720 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D50F022255EAFEC00160720 /* Assets.xcassets */; };
 		0D50F026255EAFEC00160720 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D50F024255EAFEC00160720 /* LaunchScreen.storyboard */; };
+		53FBAA22256DC7E9002C05E3 /* secondScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBAA21256DC7E9002C05E3 /* secondScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		0D50F022255EAFEC00160720 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D50F025255EAFEC00160720 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0D50F027255EAFEC00160720 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53FBAA21256DC7E9002C05E3 /* secondScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondScreenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				0D50F01B255EAFE800160720 /* SceneDelegate.swift */,
 				0D50F01D255EAFE800160720 /* ViewController.swift */,
 				0D50F01F255EAFE800160720 /* Main.storyboard */,
+				53FBAA21256DC7E9002C05E3 /* secondScreenController.swift */,
 				0D50F022255EAFEC00160720 /* Assets.xcassets */,
 				0D50F024255EAFEC00160720 /* LaunchScreen.storyboard */,
 				0D50F027255EAFEC00160720 /* Info.plist */,
@@ -141,6 +144,7 @@
 				0D50F01E255EAFE800160720 /* ViewController.swift in Sources */,
 				0D50F01A255EAFE800160720 /* AppDelegate.swift in Sources */,
 				0D50F01C255EAFE800160720 /* SceneDelegate.swift in Sources */,
+				53FBAA22256DC7E9002C05E3 /* secondScreenController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
