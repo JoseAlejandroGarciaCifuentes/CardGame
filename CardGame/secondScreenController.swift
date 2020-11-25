@@ -15,7 +15,7 @@ class secondScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        score.text = UserDefaults.standard.string(forKey: "points")
+        score.text = UserDefaults.standard.string(forKey: "points")! + " points"
         
     }
 }
