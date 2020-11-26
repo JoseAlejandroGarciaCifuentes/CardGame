@@ -11,11 +11,16 @@ import UIKit
 class secondScreenController: UIViewController {
 
     @IBOutlet weak var score: UILabel!
+    @IBOutlet weak var bestScore: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        score.text = UserDefaults.standard.string(forKey: "points")! + " points"
+        score.text =  UserDefaults.standard.string(forKey: "points")! + " pts."
+        
+        if let bestOne = UserDefaults.standard.string(forKey: "bestScore") {
+        bestScore.text = "Best Score: " + bestOne + " pts."
+        }
         
     }
 }

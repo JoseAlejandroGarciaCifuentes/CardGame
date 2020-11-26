@@ -83,7 +83,12 @@ class ViewController: UIViewController {
     func checkState(score:Int) {
         
         if score > maxValue || score < minValue {
+            
+            if isBestScore(){
+                saveState(keyName: "bestScore", value: currentPointsValue.description)
+            }
             performSegue(withIdentifier: "lostGame", sender: nil)
+            
             removeState(keyName: "points")
             setNewValues()
 
@@ -111,6 +116,10 @@ class ViewController: UIViewController {
             return lowestPoints
             
         }else if percentage == 0 || percentage == 100{
+            
+            animationBigger()
+            //delay
+            animationSmaller()
             
             return nicestPoints
             
@@ -144,6 +153,7 @@ class ViewController: UIViewController {
     }
     
     func generalSave(){
+        
         saveState(keyName: "points", value: currentPointsValue.description)
         saveState(keyName: "rightCard", value: getCardValue(card: rightNumber).description)
         saveState(keyName: "leftCard", value: getCardValue(card: leftnumber).description)
@@ -203,6 +213,38 @@ class ViewController: UIViewController {
         setProperTitle(card: card, value:newRandomValue)
         
         checkState(score: score)
+        
+    }
+    
+    func isBestScore() -> Bool{
+        
+        if let bestScore = UserDefaults.standard.string(forKey: "bestScore"){
+            if Int(bestScore)! < currentPointsValue{
+                return true
+            }else{
+                return false
+            }
+        }else{
+            return true
+        }
+        
+    }
+    
+    func animationBigger(){
+        
+        currentPoints.transform = .identity
+        var affineTransform = CGAffineTransform.identity
+        affineTransform = affineTransform.scaledBy(x: 10, y:
+        10)
+        
+    }
+    
+    func animationSmaller(){
+        
+        currentPoints.transform = .identity
+        var affineTransform = CGAffineTransform.identity
+        affineTransform = affineTransform.scaledBy(x: -10, y:
+        -10)
         
     }
 
