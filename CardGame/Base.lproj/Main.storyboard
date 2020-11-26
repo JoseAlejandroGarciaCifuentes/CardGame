@@ -90,7 +90,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="rightButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="glV-JS-1Yc"/>
+                                                    <action selector="leftButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ji0-7C-vzH"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1C-v2-C0O">
@@ -103,7 +103,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="leftButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLT-iS-JEY"/>
+                                                    <action selector="rightButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVK-OL-0gD"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -118,10 +118,13 @@
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="buC-ie-2Cf" secondAttribute="trailing" id="LIm-ge-KcR"/>
-                                    <constraint firstItem="buC-ie-2Cf" firstAttribute="top" secondItem="SLC-pC-FQJ" secondAttribute="bottom" constant="18" id="acP-rZ-gZb"/>
-                                    <constraint firstItem="buC-ie-2Cf" firstAttribute="leading" secondItem="zmK-qg-V1t" secondAttribute="leading" id="tH7-IR-clK"/>
+                                    <constraint firstItem="buC-ie-2Cf" firstAttribute="top" secondItem="zmK-qg-V1t" secondAttribute="top" constant="-93.333333333333343" id="EQd-oZ-Gpc"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="EQd-oZ-Gpc"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -134,10 +137,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="currentCard" destination="THH-z7-fp9" id="ltR-Wj-b0g"/>
                         <outlet property="currentPoints" destination="SLC-pC-FQJ" id="Q7G-rI-lYr"/>
-                        <outlet property="leftnumber" destination="R1C-v2-C0O" id="XhY-xn-Sys"/>
-                        <outlet property="rightNumber" destination="1su-uk-EMN" id="VDG-qe-wV9"/>
+                        <outlet property="leftCard" destination="1su-uk-EMN" id="taT-Lk-LUd"/>
+                        <outlet property="myCard" destination="THH-z7-fp9" id="4wg-BZ-Q6N"/>
+                        <outlet property="rightCard" destination="R1C-v2-C0O" id="wQl-sJ-3tD"/>
                         <segue destination="A25-Hf-OIz" kind="show" identifier="lostGame" id="eEe-4f-EHD"/>
                     </connections>
                 </viewController>
