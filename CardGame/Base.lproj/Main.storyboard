@@ -117,6 +117,11 @@
                                         <size key="shadowOffset" width="2" height="3"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="buC-ie-2Cf" secondAttribute="trailing" id="LIm-ge-KcR"/>
+                                    <constraint firstItem="buC-ie-2Cf" firstAttribute="top" secondItem="SLC-pC-FQJ" secondAttribute="bottom" constant="18" id="acP-rZ-gZb"/>
+                                    <constraint firstItem="buC-ie-2Cf" firstAttribute="leading" secondItem="zmK-qg-V1t" secondAttribute="leading" id="tH7-IR-clK"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>

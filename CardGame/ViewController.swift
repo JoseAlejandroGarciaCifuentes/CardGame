@@ -31,11 +31,15 @@ class ViewController: UIViewController {
     
     @IBAction func leftButtonAction(_ sender: Any) {
         
+        fade_in(card: leftnumber)
+        fade_out(card: leftnumber)
         onCardClick(card: leftnumber)
         
     }
     @IBAction func rightButtonAction(_ sender: UIButton) {
         
+        fade_in(card: rightNumber)
+        fade_out(card: rightNumber)
         onCardClick(card: rightNumber)
     }
     
@@ -116,10 +120,6 @@ class ViewController: UIViewController {
             return lowestPoints
             
         }else if percentage == 0 || percentage == 100{
-            
-            animationBigger()
-            //delay
-            animationSmaller()
             
             return nicestPoints
             
@@ -230,22 +230,16 @@ class ViewController: UIViewController {
         
     }
     
-    func animationBigger(){
-        
-        currentPoints.transform = .identity
-        var affineTransform = CGAffineTransform.identity
-        affineTransform = affineTransform.scaledBy(x: 10, y:
-        10)
-        
+    func fade_in(card:UIButton) {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut,animations: {
+            card.alpha = 0.0
+        },completion: nil)
     }
     
-    func animationSmaller(){
-        
-        currentPoints.transform = .identity
-        var affineTransform = CGAffineTransform.identity
-        affineTransform = affineTransform.scaledBy(x: -10, y:
-        -10)
-        
+    func fade_out(card:UIButton) {
+        UIView.animate(withDuration: 1, delay: 0.1, options: .curveEaseOut, animations: {
+            card.alpha = 1.0
+        },completion: nil)
     }
 
     
