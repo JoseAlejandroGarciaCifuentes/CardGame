@@ -26,63 +26,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        repeat{
-            setNewValues()
-        }while !isPossibleStart()
-            
+        setNewValues()
     }
     
     @IBAction func leftButtonAction(_ sender: Any) {
         
-        let cardValue: Int
-        
-        if !leftnumber.title(for: .normal)!.description.isEmpty {
-            cardValue = Int (leftnumber.title(for: .normal)!.description)!
-        }else{
-            cardValue = 0
-        }
-        
-        let score:Int = updateScore(cardValue: cardValue)
-        
-        let newRandomValue = getRandomNumber()
-        
-        setProperImage(card: leftnumber, newValue: newRandomValue)
-        
-        if(newRandomValue != 0){
-            leftnumber.setTitle(newRandomValue.description, for: .normal)
-        }else{
-            leftnumber.setTitle("", for: .normal)
-        }
-        
-        checkState(score: score)
+        onCardClick(card: leftnumber)
         
     }
     @IBAction func rightButtonAction(_ sender: UIButton) {
         
-        let cardValue: Int
-        
-        if !rightNumber.title(for: .normal)!.description.isEmpty {
-            cardValue = Int (rightNumber.title(for: .normal)!.description)!
-        }else{
-            cardValue = 0
-        }
-        
-        let score:Int = updateScore(cardValue: cardValue)
-
-        let newRandomValue = getRandomNumber()
-        
-        setProperImage(card: rightNumber, newValue: newRandomValue)
-        
-        if(newRandomValue != 0){
-            rightNumber.setTitle(newRandomValue.description, for: .normal)
-        }else{
-            rightNumber.setTitle("", for: .normal)
-        }
-        
-        
-        
-        checkState(score: score)
+        onCardClick(card: rightNumber)
     }
     
     func getRandomNumber() -> Int {
@@ -90,22 +44,30 @@ class ViewController: UIViewController {
     }
     
     func setNewValues(){
-        currentCard.text = Int.random(in: 0..<21).description
-        let rightNewValue = getRandomNumber()
-        let leftNewValue = getRandomNumber()
+
+        let rightNewValue:Int
+        let leftNewValue:Int
+        
+        if let points = UserDefaults.standard.string(forKey: "points") {
+            currentPointsValue = Int(points)!
+            rightNewValue = Int(loadState(keyName: "rightCard"))!
+            leftNewValue = Int(loadState(keyName: "leftCard"))!
+            currentCard.text = loadState(keyName: "currentCard")
+        }else{
+            rightNewValue = getRandomNumber()
+            leftNewValue = getRandomNumber()
+            setViableStart(rightValue: rightNewValue, leftValue: leftNewValue)
+            currentPointsValue = 0
+        }
         
         setProperImage(card: rightNumber, newValue: rightNewValue)
         setProperImage(card: leftnumber, newValue: leftNewValue)
         
-        leftnumber.setTitle(leftNewValue.description, for: .normal)
-        rightNumber.setTitle(rightNewValue.description, for: .normal)
+        setProperTitle(card: rightNumber, value:rightNewValue)
+        setProperTitle(card: leftnumber, value:leftNewValue)
         
-        if let points = UserDefaults.standard.string(forKey: "points") {
-            currentPointsValue = Int(points)!
-        }else{
-            currentPointsValue = 0
-            saveState()
-        }
+        generalSave()
+        
         currentPoints.text = Int(currentPointsValue).description + " pts."
     }
     
@@ -122,13 +84,12 @@ class ViewController: UIViewController {
         
         if score > maxValue || score < minValue {
             performSegue(withIdentifier: "lostGame", sender: nil)
-            UserDefaults.standard.removeObject(forKey: "points")
-            repeat{
-                setNewValues()
-            }while !isPossibleStart()
+            removeState(keyName: "points")
+            setNewValues()
+
         }else{
             currentPointsValue += givePoints(percentage: calculatePercentage(score: score),score: score)
-            saveState()
+            generalSave()
             currentPoints.text = currentPointsValue.description + " pts."
         }
     }
@@ -152,26 +113,50 @@ class ViewController: UIViewController {
         }else if percentage == 0 || percentage == 100{
             
             return nicestPoints
+            
         }else{
             
             return okayPoints
         }
     }
     
-    func isPossibleStart() -> Bool {
+    
+    func setViableStart(rightValue:Int, leftValue:Int){
         
-        let rightCardValue: Int = Int (rightNumber.title(for: .normal)!.description)!
-        let leftCardValue: Int = Int (rightNumber.title(for: .normal)!.description)!
-        let myCardValue: Int = Int (rightNumber.title(for: .normal)!.description)!
-        
-        let range = 0...21
-        
-        return range.contains(myCardValue + leftCardValue) && range.contains(myCardValue + rightCardValue) ? true : false
+        if(rightValue > minValue && leftValue > minValue){
+            
+            let maxPossible = maxValue - max(rightValue, leftValue)
+            currentCard.text = Int.random(in: minValue..<maxPossible).description
+            
+        }else if(rightValue < minValue && leftValue < minValue){
+            
+            let minPossible = minValue - min(rightValue, leftValue)
+            currentCard.text = Int.random(in: minPossible..<maxValue).description
+            
+        }else{
+            currentCard.text = Int.random(in: minValue..<maxValue).description
+        }
     }
     
-    func saveState(){
+    func saveState(keyName: String, value:String){
         
-        UserDefaults.standard.set(currentPointsValue.description, forKey: "points")
+        UserDefaults.standard.set(value, forKey: keyName)
+    }
+    
+    func generalSave(){
+        saveState(keyName: "points", value: currentPointsValue.description)
+        saveState(keyName: "rightCard", value: getCardValue(card: rightNumber).description)
+        saveState(keyName: "leftCard", value: getCardValue(card: leftnumber).description)
+        saveState(keyName: "currentCard", value: currentCard.text!.description)
+        
+    }
+    
+    func loadState(keyName:String) -> String{
+        return UserDefaults.standard.string(forKey: keyName)!
+    }
+    
+    func removeState(keyName: String) {
+        UserDefaults.standard.removeObject(forKey: keyName)
     }
     
     func setProperImage(card: UIButton, newValue:Int){
@@ -184,6 +169,43 @@ class ViewController: UIViewController {
             card.setBackgroundImage(redCardImg, for: .normal)
         }
     }
+    
+    func setProperTitle(card: UIButton, value:Int){
+        
+        if(value != 0){
+            card.setTitle(value.description, for: .normal)
+        }else{
+            card.setTitle("", for: .normal)
+        }
+        
+    }
+    
+    func getCardValue(card: UIButton) -> Int{
+        
+        if !card.title(for: .normal)!.description.isEmpty {
+            return Int (card.title(for: .normal)!.description)!
+        }else{
+            return 0
+        }
+        
+    }
+    
+    func onCardClick(card:UIButton){
+        
+        let cardValue: Int = getCardValue(card: card)
+        
+        let score:Int = updateScore(cardValue: cardValue)
+        
+        let newRandomValue = getRandomNumber()
+        
+        setProperImage(card: card, newValue: newRandomValue)
+        
+        setProperTitle(card: card, value:newRandomValue)
+        
+        checkState(score: score)
+        
+    }
+
     
 }
 
